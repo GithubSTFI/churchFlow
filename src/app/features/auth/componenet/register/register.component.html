@@ -1,0 +1,109 @@
+<div class="logo">
+    <img src="assets/logo_final.png" alt="Logo Churchflow" />
+</div>
+
+<div class="register-container">
+    <div class="register-card">
+      <h2>Registre</h2>
+      <p>Accès à notre tableau de bord</p>
+      
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="name">Nom</label>
+          <input 
+            type="text" 
+            id="name" 
+            formControlName="name"
+            placeholder="Entrez votre nom"
+            [ngClass]="{ 'is-invalid': submitted && f['name'].errors }" 
+          />
+          <div *ngIf="submitted && f['name'].errors" class="error-message">
+            <div *ngIf="f['name'].errors['required']">Le nom est requis</div>
+            <div *ngIf="f['name'].errors['minlength']">Le nom doit contenir au moins 3 caractères</div>
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="email">Adresse courriel</label>
+          <input 
+            type="email" 
+            id="email" 
+            formControlName="email"
+            placeholder="Entrez votre adresse courriel"
+            [ngClass]="{ 'is-invalid': submitted && f['email'].errors }" 
+          />
+          <div *ngIf="submitted && f['email'].errors" class="error-message">
+            <div *ngIf="f['email'].errors['required']">L'adresse courriel est requise</div>
+            <div *ngIf="f['email'].errors['email']">L'adresse courriel n'est pas valide</div>
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="password">Mot de passe</label>
+          <input 
+            type="password" 
+            id="password" 
+            formControlName="password"
+            placeholder="Entrez votre mot de passe"
+            [ngClass]="{ 'is-invalid': submitted && f['password'].errors }" 
+          />
+          <div *ngIf="submitted && f['password'].errors" class="error-message">
+            <div *ngIf="f['password'].errors['required']">Le mot de passe est requis</div>
+            <div *ngIf="f['password'].errors['minlength']">Le mot de passe doit contenir au moins 6 caractères</div>
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="confirmPassword">Confirmer mot de passe</label>
+          <input 
+            type="password" 
+            id="confirmPassword" 
+            formControlName="confirmPassword"
+            placeholder="Confirmez votre mot de passe"
+            [ngClass]="{ 'is-invalid': submitted && (f['confirmPassword'].errors || registerForm.errors?.['mismatch']) }" 
+          />
+          <div *ngIf="submitted && (f['confirmPassword'].errors || registerForm.errors?.['mismatch'])" class="error-message">
+            <div *ngIf="f['confirmPassword'].errors?.['required']">La confirmation du mot de passe est requise</div>
+            <div *ngIf="registerForm.errors?.['mismatch']">Les mots de passe ne correspondent pas</div>
+          </div>
+        </div>
+
+        <!-- Message d'erreur général -->
+        <div *ngIf="error" class="alert alert-danger">
+          {{ error }}
+        </div>
+  
+        <div class="form-group">
+            <button 
+                type="submit" 
+                class="btn-connect"
+                [disabled]="registerForm.invalid || loading">
+               {{ loading ? 'Inscription en cours...' : 'Register' }}
+            </button>
+            
+        </div>
+    
+        <div *ngIf="error" class="alert alert-danger mt-3">
+            {{ error }}
+        </div>
+  
+        <div class="divider">
+            <span class="line"></span>
+            <span class="text">OU</span>
+            <span class="line"></span>
+        </div>
+  
+        <div class="social-section">
+            <span>Inscrivez-vous auprès de</span>
+            <div class="social-icons">
+              <a href="#"><img src="assets/facebook.png" alt="Facebook" /></a>
+              <a href="#"><img src="assets/google.png" alt="Google" /></a>
+            </div>
+        </div>
+  
+        <p class="login-link">
+          Vous avez déjà un compte existant ? <a routerLink="/login">connectez-vous</a>
+        </p>
+      </form>
+    </div>
+  </div>

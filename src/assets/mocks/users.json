@@ -1,0 +1,19 @@
+
+{
+    "users": [
+        {
+            "id": 1,
+            "name": "Admin User",
+            "email": "admin@churchflow.com",
+            "password": "admin123",
+            "role": "admin"
+          },
+      {
+        "id": 2,
+        "name": "Member User",
+        "email": "member@churchflow.com",
+        "password": "member123",
+        "role": "member"
+      }
+    ]
+  }
