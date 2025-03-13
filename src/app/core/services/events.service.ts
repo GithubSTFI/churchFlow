@@ -1,33 +1,47 @@
 // src/app/core/services/events.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
+import { Event } from '../../features/events/models/event.model';
+
+export interface EventStats {
+  title: string;
+  count: number;
+  increase: number;
+  color: string;
+  textColor: string;
+  icon: string;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class EventsService {
-  private apiUrl = 'your-api-url'; // À remplacer par votre URL d'API
+  private dataUrl = 'assets/data/events.json';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  getAllEvents(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/events`);
+  getEventStats(): Observable<EventStats[]> {
+    return this.http.get<any>(this.dataUrl).pipe(
+      map(data => Object.values(data.stats))
+    );
   }
 
-  getEventById(id: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/events/${id}`);
+  getEvents(): Observable<Event[]> {
+    return this.http.get<any>(this.dataUrl).pipe(
+      map(data => data.events)
+    );
   }
 
-  createEvent(eventData: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/events`, eventData);
+  getEventsByType(type: string): Observable<Event[]> {
+    return this.getEvents().pipe(
+      map(events => events.filter(event => event.type === type))
+    );
   }
 
-  updateEvent(id: number, eventData: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/events/${id}`, eventData);
-  }
-
-  deleteEvent(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/events/${id}`);
+  getEventById(id: number): Observable<Event | undefined> {
+    return this.getEvents().pipe(
+      map(events => events.find(event => event.id === id))
+    );
   }
 }

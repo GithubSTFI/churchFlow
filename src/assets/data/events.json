@@ -1,0 +1,98 @@
+{
+  "stats": {
+    "administratives": {
+      "title": "Administratives",
+      "count": 250,
+      "increase": 20,
+      "color": "#ffebee",
+      "textColor": "#e53935",
+      "icon": "business"
+    },
+    "culturels": {
+      "title": "Culturels",
+      "count": 250,
+      "increase": 20,
+      "color": "#e8f5e9",
+      "textColor": "#4caf50",
+      "icon": "theater_comedy"
+    },
+    "communautaires": {
+      "title": "Communautaires",
+      "count": 250,
+      "increase": 20,
+      "color": "#e3f2fd",
+      "textColor": "#2196f3",
+      "icon": "groups"
+    },
+    "liturgiques": {
+      "title": "Liturgiques",
+      "count": 250,
+      "increase": 20,
+      "color": "#fff8e1",
+      "textColor": "#ff9800",
+      "icon": "church"
+    }
+  },
+  "events": [
+    {
+      "id": 1,
+      "title": "Réunion du conseil",
+      "type": "Administratives",
+      "date": "Tous les mardis",
+      "time": "14h à 16h",
+      "visibility": "membres",
+      "description": "Réunion hebdomadaire du conseil d'administration",
+      "location": "Salle de conférence A",
+      "organizer": "Jean Dupont",
+      "status": "actif"
+    },
+    {
+      "id": 2,
+      "title": "Concert de la chorale",
+      "type": "Culturels",
+      "date": "15 avril 2024",
+      "time": "19h à 21h",
+      "visibility": "public",
+      "description": "Concert annuel de la chorale",
+      "location": "Auditorium principal",
+      "organizer": "Marie Martin",
+      "status": "à venir"
+    },
+    {
+      "id": 3,
+      "title": "Distribution alimentaire",
+      "type": "Communautaires",
+      "date": "Chaque samedi",
+      "time": "9h à 12h",
+      "visibility": "public",
+      "description": "Distribution de paniers alimentaires aux familles",
+      "location": "Hall communautaire",
+      "organizer": "Sophie Bernard",
+      "status": "actif"
+    },
+    {
+      "id": 4,
+      "title": "Service dominical",
+      "type": "Liturgiques",
+      "date": "Tous les dimanches",
+      "time": "10h à 12h",
+      "visibility": "public",
+      "description": "Service religieux hebdomadaire",
+      "location": "Sanctuaire principal",
+      "organizer": "Pasteur Thomas",
+      "status": "actif"
+    },
+    {
+      "id": 5,
+      "title": "Formation des bénévoles",
+      "type": "Administratives",
+      "date": "20 avril 2024",
+      "time": "15h à 17h",
+      "visibility": "membres",
+      "description": "Session de formation pour les nouveaux bénévoles",
+      "location": "Salle de formation B",
+      "organizer": "Lucas Petit",
+      "status": "à venir"
+    }
+  ]
+} 

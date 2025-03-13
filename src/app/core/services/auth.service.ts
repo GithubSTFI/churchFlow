@@ -3,13 +3,16 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { User } from '../models/user';
-
+import { BehaviorSubject } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private readonly USERS_KEY = 'registered_users';
+  private currentUserSubject = new BehaviorSubject<User | null>(null);
+  currentUser$ = this.currentUserSubject.asObservable();
 
   constructor(private http: HttpClient) {
     // Initialiser le stockage avec un utilisateur par défaut si vide
@@ -23,6 +26,12 @@ export class AuthService {
         }
       ];
       localStorage.setItem(this.USERS_KEY, JSON.stringify(defaultUsers));
+    }
+
+    // Charger l'utilisateur depuis le localStorage au démarrage
+    const storedUser = localStorage.getItem('currentUser');
+    if (storedUser) {
+      this.currentUserSubject.next(JSON.parse(storedUser));
     }
   }
 
@@ -83,6 +92,8 @@ export class AuthService {
         email: user.email
       }));
 
+      this.currentUserSubject.next(user);
+
       return of({
         token,
         user: {
@@ -100,6 +111,7 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('currentUser');
+    this.currentUserSubject.next(null);
   }
 
   isAuthenticated(): boolean {
@@ -112,7 +124,6 @@ export class AuthService {
     console.log(this.getUsers());
     console.log('===============================');
   }
-
 
   forgotPassword(email: string): Observable<any> {
     const users = this.getUsers();
@@ -158,5 +169,9 @@ export class AuthService {
       password += chars.charAt(Math.floor(Math.random() * chars.length));
     }
     return password;
+  }
+
+  getCurrentUser(): User | null {
+    return this.currentUserSubject.value;
   }
 }

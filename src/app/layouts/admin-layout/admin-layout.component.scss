@@ -1,9 +1,438 @@
+/* Styles globaux pour empêcher le défilement du corps de la page */
+:host {
+  display: block;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Styles pour le corps de la page */
+:host ::ng-deep body {
+  overflow: hidden;
+}
+
 .admin-layout {
-    min-height: 100vh;
-    display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow: hidden;
+}
+
+// Ajout de mixins pour les breakpoints responsive
+@mixin for-phone-only {
+  @media (max-width: 599px) { @content; }
+}
+@mixin for-tablet-portrait {
+  @media (min-width: 600px) and (max-width: 899px) { @content; }
+}
+@mixin for-tablet-landscape {
+  @media (min-width: 900px) and (max-width: 1199px) { @content; }
+}
+
+// Ajout de classes pour la gestion du responsive
+.hidden-mobile {
+  @media (max-width: 767px) {
+    display: none !important;
+  }
+}
+
+// Header principal
+.main-header {
+  height: 60px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  border-bottom: 1px solid #e0e0e0;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  z-index: 10;
+  flex-shrink: 0;
   
-    .content {
+  @include for-tablet-portrait {
+    padding: 0 10px;
+  }
+  
+  @include for-phone-only {
+    padding: 0 5px;
+  }
+  
+  @media (max-width: 767px) {
+    padding: 0 10px;
+    
+    .logo-container {
+      margin-right: 5px;
+      
+      .logo {
+        height: 35px;
+      }
+    }
+    
+    .menu-toggle {
+      margin-right: 5px;
+      margin-left: 5px;
+    }
+    
+    .search-bar {
+      width: 120px;
+      padding: 5px;
+      
+      i {
+        margin-right: 5px;
+      }
+    }
+  }
+  
+  .logo-container {
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+    
+    @include for-tablet-portrait {
+      margin-right: 10px;
+    }
+    
+    @include for-phone-only {
+      margin-right: 5px;
+      
+      .logo {
+        height: 35px;
+      }
+      
+      .logo-text {
+        font-size: 16px;
+      }
+    }
+    
+    .logo {
+      height: 40px;
+      margin-right: 8px;
+    }
+    
+    .logo-text {
+      font-weight: bold;
+      color: #e53935;
+      font-size: 18px;
+    }
+  }
+  
+  .menu-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-right: 15px;
+    margin-left: 25px;
+    padding: 5px;
+    
+    @include for-tablet-portrait {
+      margin-right: 10px;
+      margin-left: 15px;
+    }
+    
+    @include for-phone-only {
+      margin-right: 5px;
+      margin-left: 5px;
+    }
+    
+    i {
+      font-size: 24px;
+      color: #555;
+    }
+  }
+  
+  .search-bar {
+    display: flex;
+    align-items: center;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    padding: 5px 10px;
+    width: 300px;
+    margin-right: auto;
+    
+    @include for-tablet-portrait {
+      width: 200px;
+    }
+    
+    @include for-phone-only {
+      width: 150px;
+      padding: 5px;
+      
+      i {
+        margin-right: 5px;
+      }
+    }
+    
+    i {
+      color: #999;
+      margin-right: 10px;
+    }
+    
+    input {
+      border: none;
+      background: transparent;
+      outline: none;
+      width: 100%;
+      font-size: 14px;
+    }
+  }
+  
+  .user-menu {
+    display: flex;
+    align-items: center;
+    
+    @include for-tablet-portrait {
+      .language-selector, .notifications, .fullscreen {
+        margin-right: 15px;
+      }
+    }
+    
+    @include for-phone-only {
+      .language-selector {
+        display: none;
+      }
+      
+      .notifications, .fullscreen {
+        margin-right: 10px;
+      }
+      
+      .user-profile {
+        .user-info {
+          display: none;
+        }
+      }
+    }
+    
+    .language-selector, .notifications, .fullscreen {
+      margin-right: 20px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      
+      .lang-label {
+        margin-right: 5px;
+        font-size: 14px;
+        color: #666;
+      }
+      
+      i {
+        color: #666;
+      }
+    }
+    
+    .user-profile {
+      display: flex;
+      align-items: center;
+      
+      img {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        margin-right: 10px;
+      }
+      
+      .user-info {
+        display: flex;
+        flex-direction: column;
+        
+        .user-role {
+          font-size: 12px;
+          color: #666;
+        }
+        
+        .user-name {
+          font-size: 14px;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+}
+
+.content-wrapper {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  position: absolute;
+  top: 60px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.sidenav {
+  width: 230px;
+  background-color: white;
+  color: #333;
+  border-right: 1px solid #e0e0e0;
+  overflow-y: auto;
+  transition: width 0.3s ease;
+  
+  @include for-tablet-portrait {
+    width: 200px;
+  }
+  
+  &.collapsed {
+    width: 60px;
+    
+    .nav-item {
+      justify-content: center;
+      padding: 15px 0 !important;
+      
+      i:not(.arrow) {
+        margin-right: 0;
+      }
+    }
+  }
+  
+  &.mobile {
+    position: absolute;
+    z-index: 100;
+    height: 100%;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    
+    &.collapsed {
+      width: 0;
+      overflow: hidden;
+      border-right: none;
+    }
+  }
+  
+  @media (max-width: 767px) {
+    width: 200px;
+    
+    .menu-section {
+      .section-title {
+        padding: 8px 12px;
+        font-size: 11px;
+      }
+      
+      .nav-menu .nav-item {
+        padding: 8px 12px;
+        
+        i {
+          font-size: 18px;
+        }
+        
+        span {
+          font-size: 13px;
+        }
+      }
+    }
+  }
+  
+  .menu-section {
+    margin-top: 15px;
+    
+    @include for-tablet-portrait {
+      .section-title {
+        padding: 8px 12px;
+      }
+      
+      .nav-menu .nav-item {
+        padding: 8px 12px;
+        
+        i {
+          font-size: 18px;
+        }
+      }
+    }
+    
+    .section-title {
+      padding: 10px 15px;
+      font-size: 12px;
+      color: #999;
+      text-transform: uppercase;
+    }
+    
+    .nav-menu {
+      .nav-item {
+        display: flex;
+        align-items: center;
+        padding: 10px 15px;
+        color: #555;
+        text-decoration: none;
+        font-size: 14px;
+        position: relative;
+        
+        &:hover {
+          background-color: rgba(0, 0, 0, 0.05);
+        }
+        
+        &.active {
+          color: #e53935;
+          background-color: rgba(229, 57, 53, 0.1);
+          border-left: 3px solid #e53935;
+          padding-left: 12px;
+          
+          .sidenav.collapsed & {
+            padding-left: 0;
+            border-left: none;
+            border-left: 3px solid #e53935;
+          }
+        }
+        
+        i {
+          margin-right: 10px;
+          font-size: 20px;
+          
+          &.arrow {
+            margin-right: 0;
+            margin-left: auto;
+            font-size: 16px;
+            opacity: 0.5;
+          }
+        }
+      }
+    }
+  }
+}
+
+.main-content {
       flex: 1;
+  background-color: #f5f5f5;
+  overflow-y: auto;
+  position: relative;
+  
+  &.expanded {
+    @media (max-width: 767px) {
+      margin-left: 0;
+    }
+  }
+  
+  .content-container {
       padding: 20px;
+    
+    @include for-tablet-portrait {
+      padding: 15px;
+    }
+    
+    @include for-phone-only {
+      padding: 10px;
+    }
+  }
+  
+  @media (max-width: 767px) {
+    .content-container {
+      padding: 10px;
+    }
+  }
+}
+
+// Overlay pour fermer le sidenav sur mobile
+.sidenav-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 99;
+  
+  &.active {
+    display: block;
     }
   }

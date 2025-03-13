@@ -30,10 +30,6 @@ const routes: Routes = [
         loadChildren: () => import('./features/dashboard/dashboard.module').then(m => m.DashboardModule)
       },
       {
-        path: 'appointments',
-        loadChildren: () => import('./features/appointments/appointments.module').then(m => m.AppointmentsModule)
-      },
-      {
         path: 'events',
         loadChildren: () => import('./features/events/events.module').then(m => m.EventsModule)
       },
@@ -52,8 +48,18 @@ const routes: Routes = [
       {
         path: 'communication',
         loadChildren: () => import('./features/communication/communication.module').then(m => m.CommunicationModule)
+      },
+      {
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full'
       }
     ]
+  },
+  {
+    path: '',
+    redirectTo: 'admin/dashboard',
+    pathMatch: 'full'
   },
   { path: '**', redirectTo: '' }
 ];

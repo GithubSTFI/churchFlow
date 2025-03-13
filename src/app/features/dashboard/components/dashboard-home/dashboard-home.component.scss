@@ -1,0 +1,558 @@
+// Ajout de mixins pour les breakpoints responsive
+@mixin for-phone-only {
+  @media (max-width: 599px) { @content; }
+}
+@mixin for-tablet-portrait {
+  @media (min-width: 600px) and (max-width: 899px) { @content; }
+}
+@mixin for-tablet-landscape {
+  @media (min-width: 900px) and (max-width: 1199px) { @content; }
+}
+@mixin for-desktop {
+  @media (min-width: 1200px) { @content; }
+}
+@mixin for-big-desktop {
+  @media (min-width: 1800px) { @content; }
+}
+
+.dashboard-container {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 100%;
+  
+  @include for-phone-only {
+    padding: 10px;
+    gap: 15px;
+  }
+}
+
+// Première rangée
+.top-row {
+  display: flex;
+  gap: 20px;
+  height: 180px;
+  margin-bottom: 50px;
+  
+  @include for-tablet-landscape {
+    height: 160px;
+    margin-bottom: 30px;
+  }
+  
+  @include for-tablet-portrait {
+    height: auto;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+  
+  @include for-phone-only {
+    gap: 15px;
+    height: auto;
+    flex-direction: column;
+    margin-bottom: 15px;
+  }
+}
+
+// Carte de bienvenue
+.welcome-card {
+  background-color: #e53935;
+  border-radius: 8px;
+  color: white;
+  padding: 25px 30px;
+  flex: 0 0 350px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  height: 90%;
+  
+  @include for-tablet-landscape {
+    flex: 0 0 300px;
+    padding: 20px 25px;
+  }
+  
+  @include for-tablet-portrait {
+    flex: auto;
+    height: 150px;
+    margin-bottom: 15px;
+  }
+  
+  @include for-phone-only {
+    padding: 15px 20px;
+    height: auto;
+    min-height: 120px;
+  }
+  
+  .welcome-content {
+    width: 100%;
+    
+    h2 {
+      font-size: 24px;
+      margin: 0 0 10px 0;
+      font-weight: 500;
+      
+      @include for-tablet-portrait {
+        font-size: 22px;
+      }
+      
+      @include for-phone-only {
+        font-size: 20px;
+        margin-bottom: 5px;
+      }
+    }
+    
+    p {
+      margin: 0 0 25px 0;
+      font-size: 16px;
+      
+      @include for-tablet-portrait {
+        margin-bottom: 20px;
+      }
+      
+      @include for-phone-only {
+        font-size: 14px;
+        margin-bottom: 15px;
+      }
+    }
+    
+    .consult-btn {
+      background-color: rgba(255, 255, 255, 0.2);
+      border: none;
+      color: white;
+      padding: 8px 25px;
+      margin-bottom: 0;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 14px;
+      display: inline-block;
+      
+      @include for-phone-only {
+        padding: 6px 20px;
+        font-size: 13px;
+      }
+      
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.3);
+      }
+    }
+  }
+}
+
+// Cartes statistiques
+.stats-cards {
+  display: flex;
+  gap: 15px;
+  flex: 1;
+  height: 100%;
+  
+  @include for-tablet-landscape {
+    gap: 10px;
+  }
+  
+  @include for-tablet-portrait {
+    flex-wrap: wrap;
+    height: auto;
+  }
+  
+  @include for-phone-only {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .stat-card {
+    flex: 1;
+    border-radius: 8px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    
+    @include for-tablet-landscape {
+      padding: 12px;
+    }
+    
+    @include for-tablet-portrait {
+      flex: 0 0 calc(50% - 10px);
+      height: 120px;
+      margin-bottom: 10px;
+    }
+    
+    @include for-phone-only {
+      flex: 1;
+      height: 100px;
+      flex-direction: row;
+      justify-content: flex-start;
+      padding: 10px 15px;
+    }
+    
+    &:nth-child(1) {
+      background-color: #ffebee;
+    }
+    
+    &:nth-child(2) {
+      background-color: #e8eaf6;
+    }
+    
+    &:nth-child(3) {
+      background-color: #e8f5e9;
+    }
+    
+    &:nth-child(4) {
+      background-color: #fff8e1;
+    }
+    
+    .stat-icon {
+      margin-bottom: 10px;
+      
+      @include for-phone-only {
+        margin-bottom: 0;
+        margin-right: 15px;
+      }
+      
+      .icon-wrapper {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 4px;
+        
+        
+        
+        @include for-tablet-landscape {
+          width: 35px;
+          height: 35px;
+        }
+        
+        &.icon-0 {
+          border-color: #e53935;
+        }
+        
+        &.icon-1 {
+          border-color: #3f51b5;
+        }
+        
+        &.icon-2 {
+          border-color: #4caf50;
+        }
+        
+        &.icon-3 {
+          border-color: #ff9800;
+        }
+        
+        img {
+          width: 30px;
+          height: 30px;
+          object-fit: contain;
+          
+          @include for-tablet-landscape {
+            width: 25px;
+            height: 25px;
+          }
+        }
+      }
+    }
+    
+    .stat-info {
+      text-align: center;
+      width: 100%;
+      
+      @include for-phone-only {
+        text-align: left;
+      }
+      
+      h3 {
+        margin: 0;
+        font-size: 14px;
+        font-weight: 500;
+        color: #555;
+        white-space: nowrap;
+        
+        @include for-tablet-landscape {
+          font-size: 13px;
+        }
+      }
+      
+      .stat-count {
+        font-size: 28px;
+        font-weight: bold;
+        margin: 5px 0;
+        
+        @include for-tablet-landscape {
+          font-size: 24px;
+        }
+        
+        @include for-phone-only {
+          font-size: 22px;
+          margin: 2px 0;
+        }
+      }
+      
+      .stat-increase {
+        font-size: 12px;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+        @include for-phone-only {
+          justify-content: flex-start;
+        }
+        
+        .increase-value {
+          color: #4caf50;
+          font-weight: 500;
+        }
+        
+        .period {
+          color: #999;
+          margin-left: 5px;
+          white-space: nowrap;
+        }
+      }
+    }
+  }
+}
+
+// Deuxième rangée
+.bottom-row {
+  display: flex;
+  gap: 20px;
+  flex: 1;
+  margin-top: 10px;
+  
+  @include for-tablet-landscape {
+    gap: 15px;
+  }
+  
+  @include for-tablet-portrait {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  @include for-phone-only {
+    flex-direction: column;
+    gap: 15px;
+  }
+}
+
+// Section nouveaux fidèles
+.new-members-section {
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  flex: 1;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  
+  @include for-tablet-landscape {
+    padding: 15px;
+  }
+  
+  @include for-phone-only {
+    padding: 15px 10px;
+  }
+  
+  h3 {
+    margin: 0 0 10px 0;
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+    
+    @include for-phone-only {
+      font-size: 15px;
+    }
+  }
+  
+  .divider {
+    height: 1px;
+    background-color: #eee;
+    margin-bottom: 15px;
+    
+    @include for-phone-only {
+      margin-bottom: 10px;
+    }
+  }
+  
+  .member-list {
+    .member-item {
+      display: flex;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid #f5f5f5;
+      
+      @include for-phone-only {
+        padding: 10px 0;
+      }
+      
+      &:last-child {
+        border-bottom: none;
+      }
+      
+      .member-avatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background-color: #f5f5f5;
+        margin-right: 12px;
+        overflow: hidden;
+        
+        @include for-phone-only {
+          width: 32px;
+          height: 32px;
+          margin-right: 10px;
+        }
+        
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+      
+      .member-info {
+        flex: 1;
+        
+        .member-name {
+          margin: 0;
+          font-size: 14px;
+          font-weight: 500;
+          color: #333;
+          
+          @include for-phone-only {
+            font-size: 13px;
+          }
+        }
+        
+        .member-id {
+          margin: 0;
+          font-size: 12px;
+          color: #999;
+          
+          @include for-phone-only {
+            font-size: 11px;
+          }
+        }
+      }
+      
+      .member-date {
+        margin-right: 15px;
+        font-size: 14px;
+        color: #666;
+        
+        @include for-tablet-landscape {
+          font-size: 13px;
+          margin-right: 10px;
+        }
+        
+        @include for-phone-only {
+          font-size: 12px;
+          margin-right: 8px;
+        }
+      }
+      
+      .view-btn {
+        background-color: #ff5252;
+        color: white;
+        border: none;
+        border-radius: 20px;
+        padding: 5px 18px;
+        font-size: 13px;
+        cursor: pointer;
+        
+        @include for-tablet-landscape {
+          padding: 4px 15px;
+          font-size: 12px;
+        }
+        
+        @include for-phone-only {
+          padding: 3px 12px;
+          font-size: 11px;
+        }
+        
+        &:hover {
+          background-color: #e53935;
+        }
+      }
+    }
+  }
+}
+
+// Section graphique
+.chart-section {
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  flex: 1;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  
+  @include for-tablet-landscape {
+    padding: 15px;
+  }
+  
+  @include for-phone-only {
+    padding: 15px 10px;
+    min-height: 200px;
+  }
+  
+  .chart-container {
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    
+    .chart {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-around;
+      width: 100%;
+      height: 80%;
+      
+      .chart-bar {
+        width: 50px;
+        background-color: #e53935;
+        border-radius: 4px 4px 0 0;
+        
+        @include for-tablet-landscape {
+          width: 40px;
+        }
+        
+        @include for-phone-only {
+          width: 30px;
+        }
+      }
+    }
+  }
+}
+
+// Pour les très grands écrans
+@include for-big-desktop {
+  .dashboard-container {
+    max-width: 1800px;
+    margin: 0 auto;
+  }
+  
+  .top-row {
+    height: 200px;
+  }
+  
+  .welcome-card {
+    flex: 0 0 400px;
+  }
+  
+  .stat-card .stat-icon .icon-wrapper {
+    width: 50px;
+    height: 50px;
+    
+    img {
+      width: 35px;
+      height: 35px;
+    }
+  }
+  
+  .stat-card .stat-info .stat-count {
+    font-size: 32px;
+  }
+}

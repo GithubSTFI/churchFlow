@@ -1,0 +1,102 @@
+<div class="events-container">
+  <div class="events-header">
+    <h1>Évènements</h1>
+    <button class="add-event-btn" (click)="addEvent()">
+      <i class="material-icons">add</i>
+      Ajouter un évènement
+    </button>
+  </div>
+
+  <!-- Cartes statistiques -->
+  <div class="event-stats">
+    <div class="stat-card" *ngFor="let stat of eventStats" [ngStyle]="{'background-color': stat.color}">
+      <div class="stat-icon">
+        <i class="material-icons" [ngStyle]="{'color': stat.textColor}">{{ stat.icon }}</i>
+      </div>
+      <div class="stat-info">
+        <h3>{{ stat.title }}</h3>
+        <p class="stat-count" [ngStyle]="{'color': stat.textColor}">{{ stat.count }}</p>
+        <p class="stat-evolution">
+          <span class="evolution-label">évolution</span>
+          <span class="evolution-value">+{{ stat.increase }}</span>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filtres -->
+  <div class="filter-tabs">
+    <button 
+      *ngFor="let criteria of filterCriteria" 
+      class="filter-tab" 
+      [class.active]="criteria.active"
+      (click)="setActiveCriteria(criteria.id)">
+      {{ criteria.label }}
+    </button>
+  </div>
+
+  <!-- Tableau des événements -->
+  <div class="events-table-container">
+    <table class="events-table">
+      <thead>
+        <tr>
+          <th class="sortable">Évènements <i class="material-icons">arrow_downward</i></th>
+          <th class="sortable">Date <i class="material-icons">arrow_downward</i></th>
+          <th class="sortable">Heure <i class="material-icons">arrow_downward</i></th>
+          <th class="sortable">Visibilité <i class="material-icons">arrow_downward</i></th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let event of getCurrentPageEvents()">
+          <td class="event-title">
+            <div class="event-icon">
+              <img src="assets/event-icon.png" alt="Event">
+            </div>
+            <div class="event-info">
+              <p class="event-name">{{ event.title }}</p>
+              <p class="event-type">{{ event.type }}</p>
+            </div>
+          </td>
+          <td>{{ event.date }}</td>
+          <td>{{ event.time }}</td>
+          <td>{{ event.visibility }}</td>
+          <td class="actions-cell">
+            <button class="action-btn">
+              <i class="material-icons">more_vert</i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- État de chargement -->
+  <div class="loading-overlay" *ngIf="loading">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- Message si aucun événement -->
+  <div class="no-events" *ngIf="filteredEvents.length === 0 && !loading">
+    Aucun événement trouvé pour ce critère.
+  </div>
+
+  <!-- Pagination -->
+  <div class="pagination" *ngIf="filteredEvents.length > 0">
+    <button class="pagination-btn prev" (click)="goToPreviousPage()" [disabled]="currentPage === 1">
+      <i class="material-icons">chevron_left</i> Previous
+    </button>
+    <div class="page-numbers">
+      <button 
+        *ngFor="let page of getPageNumbers()" 
+        class="page-number" 
+        [class.active]="page === currentPage"
+        (click)="goToPage(page)">
+        {{ page }}
+      </button>
+    </div>
+    <button class="pagination-btn next" (click)="goToNextPage()" [disabled]="currentPage === totalPages">
+      Next <i class="material-icons">chevron_right</i>
+    </button>
+  </div>
+</div> 

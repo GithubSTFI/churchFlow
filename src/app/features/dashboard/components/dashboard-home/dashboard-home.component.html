@@ -1,1 +1,66 @@
-<p>dashboard-home works!</p>
+<div class="dashboard-container">
+  <!-- Première rangée: Carte de bienvenue et cartes statistiques -->
+  <div class="top-row">
+    <!-- Carte de bienvenue -->
+    <div class="welcome-card">
+      <div class="welcome-content">
+        <h2>Good Mornig, {{ userName }}</h2>
+        <p>{{ newActivities }} Nouvelle Activité</p>
+        <button class="consult-btn">Consulter</button>
+      </div>
+    </div>
+
+    <!-- Cartes statistiques -->
+    <div class="stats-cards">
+      <div class="stat-card" *ngFor="let card of statCards; let i = index">
+        <div class="stat-icon">
+          <div class="icon-wrapper" [ngClass]="'icon-' + i">
+            <img src="assets/pers-removebg.png" alt="{{ card.title }}">
+          </div>
+        </div>
+        <div class="stat-info">
+          <h3>{{ card.title }}</h3>
+          <p class="stat-count" [ngStyle]="{'color': card.textColor}">{{ card.count }}</p>
+          <div class="stat-increase">
+            <span class="increase-value">+{{ card.increase }}</span>
+            <span class="period">Dernier mois</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Deuxième rangée: Nouveaux fidèles et graphique -->
+  <div class="bottom-row">
+    <!-- Colonne gauche: Nouveaux fidèles -->
+    <div class="new-members-section">
+      <h3>Nouveau fidèle</h3>
+      <div class="divider"></div>
+      
+      <div class="member-list">
+        <div class="member-item" *ngFor="let member of newMembers">
+          <div class="member-avatar">
+            <img src="assets/avatar.png" alt="User">
+          </div>
+          <div class="member-info">
+            <p class="member-name">{{ member.name }}</p>
+            <p class="member-id">{{ member.id }}</p>
+          </div>
+          <div class="member-date">
+            {{ member.date }}
+          </div>
+          <button class="view-btn">voir</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Colonne droite: Graphique -->
+    <div class="chart-section">
+      <div class="chart-container">
+        <div class="chart">
+          <div class="chart-bar" *ngFor="let value of chartData" [style.height.%]="value"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

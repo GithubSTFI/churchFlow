@@ -1,6 +1,146 @@
 <div class="admin-layout">
-    <!-- Ici viendra votre sidebar/navbar -->
-    <div class="content">
+  <!-- Header -->
+  <header class="main-header">
+    <div class="logo-container">
+      <img src="assets/logo_final.png" alt="ChurchFlow" class="logo">
+      <span class="logo-text" [class.hidden-mobile]="isMobile">ChurchFlow</span>
+    </div>
+    
+    <button class="menu-toggle" (click)="toggleSidenav()">
+      <i class="material-icons">{{ sidenavCollapsed ? 'menu' : 'menu_open' }}</i>
+    </button>
+    
+    <div class="search-bar" [class.hidden-mobile]="isMobile && sidenavCollapsed">
+      <i class="material-icons">search</i>
+      <input type="text" placeholder="Search here">
+    </div>
+    
+    <div class="user-menu">
+      <div class="language-selector" [class.hidden-mobile]="isMobile">
+        <span class="lang-label">English</span>
+        <i class="material-icons">arrow_drop_down</i>
+      </div>
+      <div class="notifications">
+        <i class="material-icons">notifications</i>
+      </div>
+      <div class="fullscreen" [class.hidden-mobile]="isMobile">
+        <i class="material-icons">fullscreen</i>
+      </div>
+      <div class="user-profile">
+        <img [src]="currentUser?.avatar || 'assets/avatar.png'" [alt]="currentUser?.name">
+        <div class="user-info" [class.hidden-mobile]="isMobile">
+          <span class="user-role">{{ currentUser?.role || 'Admin' }}</span>
+          <span class="user-name">{{ currentUser?.name || 'Chargement...' }}</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="content-wrapper">
+    <!-- Sidenav -->
+    <div class="sidenav" [class.collapsed]="sidenavCollapsed" [class.mobile]="isMobile">
+      <div class="menu-section">
+        <div class="section-title" *ngIf="!sidenavCollapsed">Accueil</div>
+        <nav class="nav-menu">
+          <a [routerLink]="['/admin/dashboard']" routerLinkActive="active" class="nav-item">
+            <i class="material-icons">dashboard</i>
+            <span *ngIf="!sidenavCollapsed">Dashboard</span>
+            <i class="material-icons arrow" *ngIf="!sidenavCollapsed">chevron_right</i>
+          </a>
+          <a [routerLink]="['/admin/appointments']" routerLinkActive="active" class="nav-item">
+            <i class="material-icons">event_note</i>
+            <span *ngIf="!sidenavCollapsed">Rendez-vous</span>
+            <i class="material-icons arrow" *ngIf="!sidenavCollapsed">chevron_right</i>
+          </a>
+        </nav>
+      </div>
+
+      <div class="menu-section">
+        <div class="section-title" *ngIf="!sidenavCollapsed">Membres</div>
+        <nav class="nav-menu">
+          <a [routerLink]="['/admin/members/new']" routerLinkActive="active" class="nav-item">
+            <i class="material-icons">person_add</i>
+            <span *ngIf="!sidenavCollapsed">Nouveau</span>
+            <i class="material-icons arrow" *ngIf="!sidenavCollapsed">chevron_right</i>
+          </a>
+          <a [routerLink]="['/admin/members/list']" routerLinkActive="active" class="nav-item">
+            <i class="material-icons">list</i>
+            <span *ngIf="!sidenavCollapsed">Listes</span>
+            <i class="material-icons arrow" *ngIf="!sidenavCollapsed">chevron_right</i>
+          </a>
+        </nav>
+      </div>
+
+      <div class="menu-section">
+        <div class="section-title" *ngIf="!sidenavCollapsed">Événements et Activités</div>
+        <nav class="nav-menu">
+          <a [routerLink]="['/admin/events/planning']" routerLinkActive="active" class="nav-item">
+            <i class="material-icons">event</i>
+            <span *ngIf="!sidenavCollapsed">Planifications</span>
+            <i class="material-icons arrow" *ngIf="!sidenavCollapsed">chevron_right</i>
+          </a>
+          <a [routerLink]="['/admin/events/list']" routerLinkActive="active" class="nav-item">
+            <i class="material-icons">list</i>
+            <span *ngIf="!sidenavCollapsed">Listes</span>
+            <i class="material-icons arrow" *ngIf="!sidenavCollapsed">chevron_right</i>
+          </a>
+        </nav>
+      </div>
+
+      <div class="menu-section">
+        <div class="section-title" *ngIf="!sidenavCollapsed">Finance</div>
+        <nav class="nav-menu">
+          <a [routerLink]="['/admin/finances/tracking']" routerLinkActive="active" class="nav-item">
+            <i class="material-icons">attach_money</i>
+            <span *ngIf="!sidenavCollapsed">Suivis</span>
+            <i class="material-icons arrow" *ngIf="!sidenavCollapsed">chevron_right</i>
+          </a>
+          <a [routerLink]="['/admin/finances/reports']" routerLinkActive="active" class="nav-item">
+            <i class="material-icons">description</i>
+            <span *ngIf="!sidenavCollapsed">Rapport</span>
+            <i class="material-icons arrow" *ngIf="!sidenavCollapsed">chevron_right</i>
+          </a>
+        </nav>
+      </div>
+
+      <div class="menu-section">
+        <div class="section-title" *ngIf="!sidenavCollapsed">Ressources</div>
+        <nav class="nav-menu">
+          <a [routerLink]="['/admin/resources/inventory']" routerLinkActive="active" class="nav-item">
+            <i class="material-icons">inventory</i>
+            <span *ngIf="!sidenavCollapsed">Inventaire</span>
+            <i class="material-icons arrow" *ngIf="!sidenavCollapsed">chevron_right</i>
+          </a>
+          <a [routerLink]="['/admin/resources/maintenance']" routerLinkActive="active" class="nav-item">
+            <i class="material-icons">build</i>
+            <span *ngIf="!sidenavCollapsed">Maintenance</span>
+            <i class="material-icons arrow" *ngIf="!sidenavCollapsed">chevron_right</i>
+          </a>
+        </nav>
+      </div>
+
+      <div class="menu-section">
+        <div class="section-title" *ngIf="!sidenavCollapsed">Communication</div>
+        <nav class="nav-menu">
+          <a [routerLink]="['/admin/communication/bulletins']" routerLinkActive="active" class="nav-item">
+            <i class="material-icons">mail</i>
+            <span *ngIf="!sidenavCollapsed">Bulletins d'informations</span>
+            <i class="material-icons arrow" *ngIf="!sidenavCollapsed">chevron_right</i>
+          </a>
+          <a [routerLink]="['/admin/communication/announcements']" routerLinkActive="active" class="nav-item">
+            <i class="material-icons">campaign</i>
+            <span *ngIf="!sidenavCollapsed">Annonces</span>
+            <i class="material-icons arrow" *ngIf="!sidenavCollapsed">chevron_right</i>
+          </a>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="main-content" [class.expanded]="sidenavCollapsed">
+      <div class="content-container">
       <router-outlet></router-outlet>
+      </div>
+    </div>
     </div>
   </div>

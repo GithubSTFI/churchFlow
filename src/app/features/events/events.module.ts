@@ -1,17 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { EventPlanningComponent } from './components/event-planning/event-planning.component';
-import { EventsListComponent } from './components/events-list/events-list.component';
+import { RouterModule, Routes } from '@angular/router';
+import { EventListComponent } from './components/event-list/event-list.component';
+import { HttpClientModule } from '@angular/common/http';
 
-
+const routes: Routes = [
+  { path: 'list', component: EventListComponent }
+];
 
 @NgModule({
   declarations: [
-    EventPlanningComponent,
-    EventsListComponent
+    EventListComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    HttpClientModule,
+    RouterModule.forChild(routes)
   ]
 })
 export class EventsModule { }
